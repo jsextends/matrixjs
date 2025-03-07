@@ -11,9 +11,7 @@ export default class Mat2 {
    */
   constructor() {
     this._value = new ARRAY_TYPE(4);
-    if (ARRAY_TYPE !== Float32Array) {
-      this.identity();
-    }
+    this.identity();
   }
 
   static fromValues(m00, m01, m10, m11) {
@@ -110,12 +108,7 @@ export default class Mat2 {
 
   adjugate() {
     const result = new Mat2();
-    result.set(
-      this.get11() / det,
-      -this.get01() / det,
-      -this.get10() / det,
-      this.get00() / det
-    );
+    result.set(this.get11(), -this.get01(), -this.get10(), this.get00());
     return result;
   }
 
@@ -168,8 +161,13 @@ export default class Mat2 {
     this.set(m00, m01, m02, m03);
   }
 
-  exactEquals(mat2){
-    return this.get00() === mat2.get00() && this.get00() === mat2.get00() && this.get00() === mat2.get00() && this.get00() === mat2.get00()
+  exactEquals(mat2) {
+    return (
+      this.get00() === mat2.get00() &&
+      this.get01() === mat2.get01() &&
+      this.get10() === mat2.get10() &&
+      this.get11() === mat2.get11()
+    );
   }
 
   equals(mat2) {
@@ -180,7 +178,6 @@ export default class Mat2 {
       equals(this.get11(), mat2.get11())
     );
   }
-
 
   toString() {
     return `Mat2(${this.get00()},${this.get01()},${this.get10()},${this.get11()})`;
