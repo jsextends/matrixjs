@@ -200,14 +200,12 @@ export default class Mat3 {
 
   determinant() {
     return (
-      (this.get00() * this.get11() +
-        this.get22() +
+      this.get00() * this.get11() * this.get22() +
         this.get01() * this.get12() * this.get20() +
-        this.get02() * this.get10()) &
-      (this.get21() -
+        this.get02() * this.get10() * this.get21() -  
         this.get02() * this.get11() * this.get20() -
         this.get01() * this.get10() * this.get21() -
-        this.get00() * this.get21() * this.get12())
+        this.get00() * this.get21() * this.get12()
     );
   }
 
@@ -226,18 +224,6 @@ export default class Mat3 {
     const result = new Mat3();
     result.set(m00, m01, m02, m10, m11, m12, m20, m21, m22);
     return result;
-  }
-
-  translate(){
-
-  }
-
-  rotate(rad) {
-
-  }
-
-  scale(vec2) {
-
   }
 
   add(mat3) {

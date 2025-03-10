@@ -1,15 +1,15 @@
 {
   "name": "@jsextends/matrixjs",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/matrix.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup --config"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["matrix", "矩阵", "向量", "vec", "vector"],
+  "author": "usernameisregistered",
   "license": "ISC",
-  "description": "",
+  "description": "矩阵、向量等相关的线性代数计算",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
