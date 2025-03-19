@@ -1,7 +1,3 @@
----
-outline: deep
----
-
 # 三维向量
 
 > Vec3 类型 **类**
@@ -33,64 +29,7 @@ const vec3 = new Vec3()
  */
 ```
 
-### ceil
-
-```js
-/**
- * 将三维向量的各个分量向上取整
- * 
- * @param {Vec3} vec3 
- * @returns {Vec3}
- */
-```
-
-### floor
-
-```js
-/**
- * 将三维向量的各个分量向下取整
- * 
- * @param {Vec3} vec3 
- * @returns {Vec3}
- */
-```
-
-### round
-
-```js
-/**
- * 将三维向量的各个分量四舍五入取整
- * 
- * @param {Vec3} vec3 
- * @returns {Vec3}
- */
-```
-
-### linerInterpolation
-
-```js
-/**
- * 在两个三维向量中线性插值获得一个三维向量
- * 
- * @param {vec3} vec3_1
- * @param {vec3} vec3_2
- * @param {Number} t 
- * @returns {Vec3}
- */
-```
-
 ## 实例方法
-
-### get
-
-```js
-/**
- * 获取三维向量的某个分量的值
- * 
- * @param {string} component 有效值x|y|z 
- * @returns {Number}
- */
-```
 
 ### set
 
@@ -101,6 +40,17 @@ const vec3 = new Vec3()
  * @param {Number} x 
  * @param {Number} y 
  * @param {Number} z
+ */
+```
+
+### get
+
+```js
+/**
+ * 获取三维向量的某个分量的值
+ * 
+ * @param {String} component 有效值x|y|z 
+ * @returns {Number}
  */
 ```
 
@@ -124,6 +74,42 @@ const vec3 = new Vec3()
  */
 ```
 
+### ceil
+
+```js
+/**
+ * 将三维向量的各个分量向上取整
+ */
+```
+
+### floor
+
+```js
+/**
+ * 将三维向量的各个分量向下取整
+ */
+```
+
+### round
+
+```js
+/**
+ * 将三维向量的各个分量四舍五入取整
+ */
+```
+
+### linerInterpolation
+
+```js
+/**
+ * 在两个三维向量中线性插值获得一个三维向量
+ * 
+ * @param {vec3} vec3
+ * @param {Number} t 
+ * @returns {Vec3}
+ */
+```
+
 ### add
 
 ```js
@@ -144,26 +130,6 @@ const vec3 = new Vec3()
  */
 ```
 
-### multiply
-
-```js
-/**
- * 两个三维向量的各个分量相乘
- * 
- * @param {Vec3} vec3
- */
-```
-
-### divide
-
-```js
-/**
- * 两个三维向量的各个分量相除
- * 
- * @param {Vec3} vec3
- */
-```
-
 ### scale
 
 ```js
@@ -174,34 +140,24 @@ const vec3 = new Vec3()
  */
 ```
 
-### distance
-
-```js
-/**
- * 返回两个三维向量的欧几米德距离
- * 
- * @param {Vec3} vec3
- * @returns {Number}
- */
-```
-
 ### squaredDistance
 
 ```js
 /**
- * 返回两个三维向量的欧几米德距离的平方
+ * 返回与另一个三维向量的欧几米德距离的平方
  * 
  * @param {Vec3} vec3
  * @returns {Number}
  */
 ```
 
-### length
+### distance
 
 ```js
 /**
- * 返回三维向量到坐标原点的欧几米德距离
+ * 返回与另一个三维向量的欧几米德距离的
  * 
+ * @param {Vec3} vec3
  * @returns {Number}
  */
 ```
@@ -216,12 +172,21 @@ const vec3 = new Vec3()
  */
 ```
 
+### length
+
+```js
+/**
+ * 返回三维向量到坐标原点的欧几米德距离
+ * 
+ * @returns {Number}
+ */
+```
+
 ### negate
 
 ```js
 /**
- * 负向量
- * 
+ * 相反向量
  */
 ```
 
@@ -229,8 +194,7 @@ const vec3 = new Vec3()
 
 ```js
 /**
- * 各个向量去倒数
- * 
+ * 倒数向量 各个向量去倒数
  */
 ```
 
@@ -239,7 +203,6 @@ const vec3 = new Vec3()
 ```js
 /**
  * 归一化向量,也就是三维向量的长度为1
- * 
  */
 ```
 
@@ -283,7 +246,6 @@ $z = x_1 * y_2 - y_2 * x_1$
  * 
  * @param {Vec3} vec3 
  * @param {Number} rad
- * 
  */
 ```
 
@@ -306,7 +268,6 @@ $$
  * 
  * @param {Vec3} vec3 
  * @param {Number} rad
- * 
  */
 ```
 
@@ -368,7 +329,7 @@ $$
 
 ```js
 /**
- * 判断2个三维向量是否严格相对
+ * 判断两个三维向量是否严格相对
  * 
  * @param {Vec3} vec3 
  * @returns {Boolean}
@@ -379,7 +340,7 @@ $$
 
 ```js
 /**
- * 判断2个三维向量是否相对相等，具体实现参考公共部分的equals方法
+ * 判断两个三维向量是否相对相等，具体实现参考公共部分的equals方法
  * 
  * @param {Vec3} vec3 
  * @returns {Boolean}

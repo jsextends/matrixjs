@@ -70,7 +70,11 @@
   });
 
   class Vec3 {
+    /**
+     * @property {ARRAY_TYPE} _value 分量的数据
+     */
     _value = null;
+
     constructor() {
       this._value = new ARRAY_TYPE(3);
       if (ARRAY_TYPE !== Float32Array) {
@@ -78,45 +82,39 @@
       }
     }
 
+    /**
+     * 使用2个值创建一个三维向量
+     *
+     * @param {Number} x
+     * @param {Number} y
+     * @param {Number} z
+     * @returns {Vec3}
+     */
     static fromValues(x, y, z) {
       let result = new Vec3();
       result.set(x, y, z);
       return result;
     }
 
-    static ceil(vec3) {
-      return Vec3.fromValues(
-        Math.ceil(vec3.get("x")),
-        Math.ceil(vec3.get("y")),
-        Math.ceil(vec3.get("z"))
-      );
+    /**
+     * 设置三维向量的某个分量的值
+     *
+     * @param {Number} x
+     * @param {Number} y
+     * @param {Number} z
+     */
+    set(x, y, z) {
+      this._value[0] = x;
+      this._value[1] = y;
+      this._value[2] = z;
     }
 
-    static floor(vec3) {
-      return Vec3.fromValues(
-        Math.floor(vec3.get("x")),
-        Math.floor(vec3.get("y")),
-        Math.floor(vec3.get("z"))
-      );
-    }
-
-    static round(vec3) {
-      return Vec3.fromValues(
-        round(vec3.get("x")),
-        round(vec3.get("y")),
-        round(vec3.get("z"))
-      );
-    }
-
-    static linerInterpolation(vec3_1, vec3_2, t) {
-      let result = new Vec3();
-      const x = vec3_1.get("x") + (vec3_2.get("x") - vec3_1.get("x")) * t;
-      const y = vec3_1.get("y") + (vec3_2.get("y") - vec3_1.get("y")) * t;
-      const z = vec3_1.get("z") + (vec3_2.get("z") - vec3_1.get("z")) * t;
-      result.set(x, y, z);
-      return result;
-    }
-
+    /**
+     * 获取三维向量的某个分量的值
+     *
+     * @param {String} component 有效值x|y|z
+     * @returns {Number}
+     */
     get(component) {
       switch (component) {
         case "x":
@@ -130,22 +128,72 @@
       }
     }
 
-    set(x, y, z) {
-      this._value[0] = x;
-      this._value[1] = y;
-      this._value[2] = z;
-    }
-
+    /**
+     * 克隆一个三维向量
+     *
+     * @returns {Vec3}
+     */
     clone() {
-      let result = new Vec3();
-      result.set(this.get("x"), this.get("y"), this.get("z"));
-      return result;
+      return Vec3.fromValues(this.get("x"), this.get("y"), this.get("z"));
     }
 
+    /**
+     * 复制另一个三维向量的值
+     *
+     * @param {Vec3} vec3
+     */
     copy(vec3) {
       this.set(vec3.get("x"), vec3.get("y"), vec3.get("z"));
     }
 
+    /**
+     * 将三维向量的各个分量向上取整
+     */
+    ceil() {
+      this.set(
+        Math.ceil(this.get("x")),
+        Math.ceil(this.get("y")),
+        Math.ceil(this.get("z"))
+      );
+    }
+
+    /**
+     * 将三维向量的各个分量向下取整
+     */
+    floor() {
+      this.set(
+        Math.floor(this.get("x")),
+        Math.floor(this.get("y")),
+        Math.floor(this.get("z"))
+      );
+    }
+
+    /**
+     * 将三维向量的各个分量四舍五入取整
+     */
+    round() {
+      this.set(round(this.get("x")), round(this.get("y")), round(this.get("z")));
+    }
+
+    /**
+     * 在两个三维向量中线性插值获得一个三维向量
+     *
+     * @param {vec3} vec3
+     * @param {Number} t
+     * @returns {Vec3}
+     */
+    linerInterpolation(vec3, t) {
+      const x = this.get("x") + (vec3.get("x") - this.get("x")) * t;
+      const y = this.get("y") + (vec3.get("y") - this.get("y")) * t;
+      const z = this.get("z") + (vec3.get("z") - this.get("z")) * t;
+      return Vec3.fromValues(x, y, z);
+    }
+
+    /**
+     * 两个三维向量的各个分量相加
+     *
+     * @param {Vec3} vec3
+     */
     add(vec3) {
       this.set(
         this.get("x") + vec3.get("x"),
@@ -154,6 +202,11 @@
       );
     }
 
+    /**
+     * 两个三维向量的各个分量相减
+     *
+     * @param {Vec3} vec3
+     */
     subtract(vec3) {
       this.set(
         this.get("x") - vec3.get("x"),
@@ -162,22 +215,11 @@
       );
     }
 
-    multiply(vec3) {
-      this.set(
-        this.get("x") * vec3.get("x"),
-        this.get("y") * vec3.get("y"),
-        this.get("z") * vec3.get("z")
-      );
-    }
-
-    divide(vec3) {
-      this.set(
-        this.get("x") / vec3.get("x"),
-        this.get("y") / vec3.get("y"),
-        this.get("z") / vec3.get("z")
-      );
-    }
-
+    /**
+     * 缩放一个三维向量
+     *
+     * @param {Number} ratio
+     */
     scale(ratio) {
       this.set(
         this.get("x") * ratio,
@@ -186,6 +228,12 @@
       );
     }
 
+    /**
+     * 返回与另一个三维向量的欧几米德距离的平方
+     *
+     * @param {Vec3} vec3
+     * @returns {Number}
+     */
     squaredDistance(vec3) {
       const x = this.get("x") - vec3.get("x");
       const y = this.get("y") - vec3.get("y");
@@ -193,10 +241,21 @@
       return x * x + y * y + z * z;
     }
 
+    /**
+     * 返回与另一个三维向量的欧几米德距离的
+     *
+     * @param {Vec3} vec3
+     * @returns {Number}
+     */
     distance(vec3) {
       return Math.sqrt(this.squaredDistance(vec3));
     }
 
+    /**
+     * 返回三维向量到坐标原点的欧几米德距离的平分
+     *
+     * @returns {Number}
+     */
     squaredLength() {
       const x = this.get("x");
       const y = this.get("y");
@@ -204,26 +263,48 @@
       return x * x + y * y + z * z;
     }
 
+    /**
+     * 返回三维向量到坐标原点的欧几米德距离
+     *
+     * @returns {Number}
+     */
     length() {
       return Math.sqrt(this.squaredLength());
     }
 
+    /**
+     * 相反向量
+     */
     negate() {
       this.scale(-1);
     }
 
+    /**
+     * 倒数向量 各个向量去倒数
+     */
     inverse() {
       this.set(1 / this.get("x"), 1 / this.get("y"), 1 / this.get("z"));
     }
 
+    /**
+     * 归一化向量,也就是三维向量的长度为1
+     */
     normalize() {
       let length = this.length();
       if (length != 0) {
         length = 1 / length;
+        this.scale(length);
+      } else {
+        throw Error("devide zero");
       }
-      this.scale(length);
     }
 
+    /**
+     * 计算两个向量的点积
+     *
+     * @param {Vec3} vec3
+     * @returns {Number}
+     */
     dot(vec3) {
       return (
         this.get("x") * vec3.get("x") +
@@ -232,6 +313,12 @@
       );
     }
 
+    /**
+     * 计算两个向量的叉积
+     *
+     * @param {Vec3} vec3
+     * @returns {Vec3}
+     */
     cross(vec3) {
       const x = this.get("y") * vec3.get("z") - this.get("z") * vec3.get("y");
       const y = this.get("z") * vec3.get("x") - this.get("x") * vec3.get("z");
@@ -241,6 +328,12 @@
       return result;
     }
 
+    /**
+     * 向三维向量vec3为坐标原点将向量沿x轴偏移一个角度
+     *
+     * @param {Vec3} vec3
+     * @param {Number} rad
+     */
     rotateX(vec3, rad) {
       let p = [];
       let r = [];
@@ -255,6 +348,12 @@
       this.set(r[0] + vec3.get("x"), r[1] + vec3.get("y"), r[2] + vec3.get("z"));
     }
 
+    /**
+     * 向三维向量vec3为坐标原点将向量沿y轴偏移一个角度
+     *
+     * @param {Vec3} vec3
+     * @param {Number} rad
+     */
     rotateY(vec3, rad) {
       let p = [];
       let r = [];
@@ -269,6 +368,13 @@
       this.set(r[0] + vec3.get("x"), r[1] + vec3.get("y"), r[2] + vec3.get("z"));
     }
 
+    /**
+     * 向三维向量vec3为坐标原点将向量沿z轴偏移一个角度
+     *
+     * @param {Vec3} vec3
+     * @param {Number} rad
+     *
+     */
     rotateZ(vec3, rad) {
       let p = [];
       let r = [];
@@ -283,12 +389,24 @@
       this.set(r[0] + vec3.get("x"), r[1] + vec3.get("y"), r[2] + vec3.get("z"));
     }
 
+    /**
+     * 获取两个向量之间的夹角
+     *
+     * @param {Vec3} vec3
+     * @returns {Number}
+     */
     angle(vec3) {
       const mag = Math.sqrt(this.squaredLength() * vec3.squaredLength());
-      cosine = mag && this.dot(vec3) / mag;
+      const cosine = mag && this.dot(vec3) / mag;
       return Math.acos(Math.min(Math.max(cosine, -1), 1));
     }
 
+    /**
+     * 判断两个三维向量是否严格相对
+     *
+     * @param {Vec3} vec3
+     * @returns {Boolean}
+     */
     exactEquals(vec3) {
       return (
         this.get("x") === vec3.get("x") &&
@@ -298,10 +416,10 @@
     }
 
     /**
-     * 判断2个二维向量是否相对相等，具体实现参考公共部分的equals方法
+     * 判断两个三维向量是否相对相等，具体实现参考公共部分的equals方法
      *
      * @param {Vec3} vec3
-     * @returns {Vec3}
+     * @returns {Boolean}
      */
     equals(vec3) {
       return (
@@ -317,19 +435,14 @@
      * @returns {string}
      */
     toString() {
-      return (
-        "vec3(" +
-        this.get("x") +
-        ", " +
-        this.get("y") +
-        ", " +
-        this.get("z") +
-        ")"
-      );
+      return `vec3(${this.get("x")}, ${this.get("y")}, ${this.get("z")})`;
     }
   }
 
   class Vec2 {
+    /**
+     * @property {ARRAY_TYPE} _value 分量的数据
+     */
     _value = null;
     constructor() {
       this._value = new ARRAY_TYPE(2);

@@ -2,6 +2,9 @@ import { ARRAY_TYPE, equals, round } from "./common";
 import Vec3 from "./vec3";
 
 export default class Vec2 {
+  /**
+   * @property {ARRAY_TYPE} _value 分量的数据
+   */
   _value = null;
   constructor() {
     this._value = new ARRAY_TYPE(2);
