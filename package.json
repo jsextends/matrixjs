@@ -3,16 +3,23 @@
   "version": "1.0.0",
   "main": "dist/matrix.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "rollup --config"
   },
-  "keywords": ["matrix", "矩阵", "向量", "vec", "vector"],
+  "keywords": [
+    "matrix",
+    "矩阵",
+    "向量",
+    "vec",
+    "vector"
+  ],
   "author": "usernameisregistered",
   "license": "ISC",
   "description": "矩阵、向量等相关的线性代数计算",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
+    "jest": "^29.7.0",
     "rollup": "^4.34.9"
   },
   "publishConfig": {
