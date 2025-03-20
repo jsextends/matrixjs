@@ -10,7 +10,7 @@ describe("Vec3", () => {
 
   describe("测试实例方法", () => {
     test("获取各个分量的值", () => {
-      expect(vecA.toString()).toBe('vec3(1, 2, 3)');
+      expect(vecA.toString()).toBe('Vec3(1, 2, 3)');
     });
 
     test("克隆一个二维向量", () => {
@@ -19,17 +19,17 @@ describe("Vec3", () => {
       expect(vecA.exactEquals(cloned)).toBe(false);
     });
 
-    test("复制向量的值", () => {
-      const target = new Vec3();
-      target.copy(vecA);
-      expect(target.exactEquals(vecA)).toBe(true);
-    });
-
     test('浮点数近似相等测试', () => {
       const vec1 = Vec3.fromValues(0.1 + 0.2, 0, 0);
       const vec3 = Vec3.fromValues(0.3, 0, 0);
       expect(vec1.equals(vec3)).toBe(true);
     })
+
+    test("复制向量的值", () => {
+      const target = new Vec3();
+      target.copy(vecA);
+      expect(target.exactEquals(vecA)).toBe(true);
+    });
   });
 
   describe("数学运算", () => {

@@ -267,14 +267,13 @@ export default class Vec3 {
   rotateX(vec3, rad) {
     let p = [];
     let r = [];
-    p[0] = this.get("x") - vec3.get("x");
-    p[1] = this.get("y") - vec3.get("y");
-    p[2] = this.get("z") - vec3.get("z");
+    p[0] = this.get("x") - vec3.get("x"); 
+    p[1] = this.get("y") - vec3.get("y"); 
+    p[2] = this.get("z") - vec3.get("z"); 
 
-    r[0] = p[0];
+    r[0] = p[0]; 
     r[1] = p[1] * Math.cos(rad) - p[2] * Math.sin(rad);
     r[2] = p[1] * Math.sin(rad) + p[2] * Math.cos(rad);
-
     this.set(r[0] + vec3.get("x"), r[1] + vec3.get("y"), r[2] + vec3.get("z"));
   }
 
@@ -365,6 +364,6 @@ export default class Vec3 {
    * @returns {string}
    */
   toString() {
-    return `vec3(${this.get("x")}, ${this.get("y")}, ${this.get("z")})`;
+    return `Vec3(${this.get("x")}, ${this.get("y")}, ${this.get("z")})`;
   }
 }

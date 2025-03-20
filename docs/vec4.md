@@ -24,7 +24,7 @@ const vec4 = new Vec4()
 
 ```js
 /**
- * 使用2个值创建一个四维向量
+ * 使用四个值创建一个四维向量
  * 
  * @param {Number} x 
  * @param {Number} y 
@@ -34,64 +34,7 @@ const vec4 = new Vec4()
  */
 ```
 
-### ceil
-
-```js
-/**
- * 将四维向量的各个分量向上取整
- * 
- * @param {Vec4} vec4 
- * @returns {Vec4}
- */
-```
-
-### floor
-
-```js
-/**
- * 将四维向量的各个分量向下取整
- * 
- * @param {Vec4} vec4 
- * @returns {Vec4}
- */
-```
-
-### round
-
-```js
-/**
- * 将四维向量的各个分量四舍五入取整
- * 
- * @param {Vec4} vec4 
- * @returns {Vec4}
- */
-```
-
-### linerInterpolation
-
-```js
-/**
- * 在两个四维向量中线性插值获得一个四维向量
- * 
- * @param {vec4} vec4_1
- * @param {vec4} vec4_2
- * @param {Number} t 
- * @returns {Vec4}
- */
-```
-
 ## 实例方法
-
-### get
-
-```js
-/**
- * 获取四维向量的某个分量的值
- * 
- * @param {string} component 有效值x|y|z|w
- * @returns {Number}
- */
-```
 
 ### set
 
@@ -103,6 +46,17 @@ const vec4 = new Vec4()
  * @param {Number} y 
  * @param {Number} z
  * @param {Number} w
+ */
+```
+
+### get
+
+```js
+/**
+ * 获取四维向量的某个分量的值
+ * 
+ * @param {String} component 有效值x|y|z|w
+ * @returns {Number}
  */
 ```
 
@@ -146,26 +100,6 @@ const vec4 = new Vec4()
  */
 ```
 
-### multiply
-
-```js
-/**
- * 两个四维向量的各个分量相乘
- * 
- * @param {Vec4} vec4
- */
-```
-
-### divide
-
-```js
-/**
- * 两个四维向量的各个分量相除
- * 
- * @param {Vec4} vec4
- */
-```
-
 ### scale
 
 ```js
@@ -176,14 +110,39 @@ const vec4 = new Vec4()
  */
 ```
 
-### distance
+### ceil
 
 ```js
 /**
- * 返回两个四维向量的欧几米德距离
+ * 将四维向量的各个分量向上取整
+ */
+```
+
+### floor
+
+```js
+/**
+ * 将四维向量的各个分量向下取整
+ */
+```
+
+### round
+
+```js
+/**
+ * 将四维向量的各个分量四舍五入取整
+ */
+```
+
+### linerInterpolation
+
+```js
+/**
+ * 在两个四维向量中线性插值获得一个四维向量
  * 
- * @param {Vec4} vec4
- * @returns {Number}
+ * @param {vec4} vec4
+ * @param {Number} t 
+ * @returns {Vec4}
  */
 ```
 
@@ -198,13 +157,14 @@ const vec4 = new Vec4()
  */
 ```
 
-### length
+### distance
 
 ```js
 /**
- * 返回四维向量到坐标原点的欧几米德距离
+ * 返回两个四维向量的欧几米德距离
  * 
- * @returns {Vec4}
+ * @param {Vec4} vec4
+ * @returns {Number}
  */
 ```
 
@@ -218,12 +178,21 @@ const vec4 = new Vec4()
  */
 ```
 
+### length
+
+```js
+/**
+ * 返回四维向量到坐标原点的欧几米德距离
+ * 
+ * @returns {Vec4}
+ */
+```
+
 ### negate
 
 ```js
 /**
- * 负向量
- * 
+ * 相反向量
  */
 ```
 
@@ -231,8 +200,7 @@ const vec4 = new Vec4()
 
 ```js
 /**
- * 各个向量去倒数
- * 
+ * 倒数向量 各个向量去倒数
  */
 ```
 

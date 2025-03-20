@@ -264,11 +264,11 @@ export default class Vec2 {
   }
 
   /**
- * 判断2个二维向量是否严格相对
- * 
- * @param {Vec2} vec2 
- * @returns {Boolean}
- */
+   * 判断2个二维向量是否严格相对
+   *
+   * @param {Vec2} vec2
+   * @returns {Boolean}
+   */
   exactEquals(vec2) {
     return this.get("x") === vec2.get("x") && this.get("y") === vec2.get("y");
   }
@@ -292,6 +292,6 @@ export default class Vec2 {
    * @returns {string}
    */
   toString() {
-    return `vec2(${this.get("x")},${this.get("y")})`;
+    return `Vec2(${this.get("x")},${this.get("y")})`;
   }
 }
