@@ -1,6 +1,10 @@
 import { ARRAY_TYPE, equals } from "./common";
 
 export default class Mat2 {
+
+  /**
+   * @property {ARRAY_TYPE} _value 分量的数据
+   */
   _value = [];
 
   /**

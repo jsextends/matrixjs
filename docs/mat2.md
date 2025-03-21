@@ -1,12 +1,15 @@
----
-outline: deep
----
-
 # 二维矩阵
 
 > Mat2 类型 **类**
 
 ## 初始化一个二维单位矩阵
+
+$$
+\begin{matrix}
+1 & 0 \\
+0 & 1
+\end{matrix}
+$$
 
 ```js
 const mat2 = new Mat2()
