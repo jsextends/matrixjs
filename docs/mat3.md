@@ -1,22 +1,26 @@
----
-outline: deep
----
-
 # 三维矩阵
 
 > Mat3 类型 **类**
 
 ## 初始化一个三维单位矩阵
 
+$$
+\begin{matrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{matrix}
+$$
+
 ```js
-const mat3 = new Mat3()
+const mat3 = new Mat3();
 ```
 
 ## 私有属性
 
-| 属性名 | 描述 | 类型 |
-| - | - | - |
-| _value | 存放三维矩阵各个分量的数据 | [ARRAY_TYPE](./common.md#ARRAY_TYPE) |
+| 属性名  | 描述                       | 类型                                 |
+| ------- | -------------------------- | ------------------------------------ |
+| \_value | 存放三维矩阵各个分量的数据 | [ARRAY_TYPE](./common.md#ARRAY_TYPE) |
 
 ## 静态方法
 
@@ -25,15 +29,15 @@ const mat3 = new Mat3()
 ```js
 /**
  * 使用9个值创建一个三维矩阵
- * 
- * @param {Number} m00 
+ *
+ * @param {Number} m00
  * @param {Number} m01
- * @param {Number} m02 
- * @param {Number} m10 
- * @param {Number} m11 
+ * @param {Number} m02
+ * @param {Number} m10
+ * @param {Number} m11
  * @param {Number} m12
  * @param {Number} m20
- * @param {Number} m21 
+ * @param {Number} m21
  * @param {Number} m22
  * @returns {Mat3}
  */
@@ -41,93 +45,21 @@ const mat3 = new Mat3()
 
 ## 实例方法
 
-### get00
+### set
 
 ```js
 /**
- * 获取三维矩阵的第一行第一列的值
- * 
- * @returns {Number}
- */
-```
-
-### get01
-
-```js
-/**
- * 获取三维矩阵的第一行第二列的值
- * 
- * @returns {Number}
- */
-```
-
-### get02
-
-```js
-/**
- * 获取三维矩阵的第一行第三列的值
- * 
- * @returns {Number}
- */
-```
-
-### get10
-
-```js
-/**
- * 获取三维矩阵的第二行第一列的值
- * 
- * @returns {Number}
- */
-```
-
-### get11
-
-```js
-/**
- * 获取三维矩阵的第二行第二列的值
- * 
- * @returns {Number}
- */
-```
-
-### get12
-
-```js
-/**
- * 获取三维矩阵的第二行第三列的值
- * 
- * @returns {Number}
- */
-```
-
-### get20
-
-```js
-/**
- * 获取三维矩阵的第三行第一列的值
- * 
- * @returns {Number}
- */
-```
-
-### get21
-
-```js
-/**
- * 获取三维矩阵的第三行第二列的值
- * 
- * @returns {Number}
- */
-```
-
-### get22
-
-```js
-/**
- * 获取三维矩阵的第三行第三列的值
- * 
- * @returns {Number}
+ * 设置三维矩阵的值
+ *
+ * @param {Number} m00
+ * @param {Number} m01
+ * @param {Number} m02
+ * @param {Number} m10
+ * @param {Number} m11
+ * @param {Number} m12
+ * @param {Number} m20
+ * @param {Number} m21
+ * @param {Number} m22
  */
 ```
 
@@ -136,7 +68,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵的第一行第一列的值
- * 
+ *
  * @param {Number} val
  */
 ```
@@ -146,7 +78,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵的第一行第二列的值
- * 
+ *
  * @param {Number} val
  */
 ```
@@ -156,7 +88,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵的第一行第三列的值
- * 
+ *
  * @param {Number} val
  */
 ```
@@ -166,7 +98,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵的第二行第一列的值
- * 
+ *
  * @param {Number} val
  */
 ```
@@ -176,7 +108,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵的第二行第二列的值
- * 
+ *
  * @param {Number} val
  */
 ```
@@ -186,7 +118,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵的第二行第三列的值
- * 
+ *
  * @param {Number} val
  */
 ```
@@ -196,7 +128,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵的第三行第一列的值
- * 
+ *
  * @param {Number} val
  */
 ```
@@ -206,7 +138,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵的第三行第二列的值
- * 
+ *
  * @param {Number} val
  */
 ```
@@ -216,26 +148,98 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵的第三行第三列的值
- * 
+ *
  * @param {Number} val
  */
 ```
 
-### set
+### get00
 
 ```js
 /**
- * 设置三维矩阵的值
- * 
- * @param {Number} m00 
- * @param {Number} m01
- * @param {Number} m02 
- * @param {Number} m10 
- * @param {Number} m11 
- * @param {Number} m12
- * @param {Number} m20
- * @param {Number} m21 
- * @param {Number} m22
+ * 获取三维矩阵的第一行第一列的值
+ *
+ * @returns {Number}
+ */
+```
+
+### get01
+
+```js
+/**
+ * 获取三维矩阵的第一行第二列的值
+ *
+ * @returns {Number}
+ */
+```
+
+### get02
+
+```js
+/**
+ * 获取三维矩阵的第一行第三列的值
+ *
+ * @returns {Number}
+ */
+```
+
+### get10
+
+```js
+/**
+ * 获取三维矩阵的第二行第一列的值
+ *
+ * @returns {Number}
+ */
+```
+
+### get11
+
+```js
+/**
+ * 获取三维矩阵的第二行第二列的值
+ *
+ * @returns {Number}
+ */
+```
+
+### get12
+
+```js
+/**
+ * 获取三维矩阵的第二行第三列的值
+ *
+ * @returns {Number}
+ */
+```
+
+### get20
+
+```js
+/**
+ * 获取三维矩阵的第三行第一列的值
+ *
+ * @returns {Number}
+ */
+```
+
+### get21
+
+```js
+/**
+ * 获取三维矩阵的第三行第二列的值
+ *
+ * @returns {Number}
+ */
+```
+
+### get22
+
+```js
+/**
+ * 获取三维矩阵的第三行第三列的值
+ *
+ * @returns {Number}
  */
 ```
 
@@ -244,7 +248,6 @@ const mat3 = new Mat3()
 ```js
 /**
  * 设置三维矩阵为单位矩阵（对眼矩阵）
- * 
  */
 ```
 
@@ -253,7 +256,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 克隆一个三维矩阵
- * 
+ *
  * @returns {Mat3}
  */
 ```
@@ -263,7 +266,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 复制另一个三维矩阵的值
- * 
+ *
  * @param {Mat3} Mat3
  */
 ```
@@ -273,8 +276,8 @@ const mat3 = new Mat3()
 ```js
 /**
  * 矩阵转置
- * 
- * @returns{Mat3|null}
+ *
+ * @returns {Mat3}
  */
 ```
 
@@ -285,7 +288,8 @@ const mat3 = new Mat3()
 ```js
 /**
  * 求逆矩阵
- * 
+ *
+ * @returns {Mat3|null}
  */
 ```
 
@@ -294,8 +298,8 @@ const mat3 = new Mat3()
 ```js
 /**
  * 伴随矩阵
- * 
- * @returns{Mat3|null}
+ *
+ * @returns {Mat3}
  */
 ```
 
@@ -304,7 +308,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 计算行列式
- * 
+ *
  * @returns{Number}
  */
 ```
@@ -316,17 +320,8 @@ const mat3 = new Mat3()
 ```js
 /**
  * 矩阵相乘
- * 
+ *
  * @param {Mat3} mat3
- */
-```
-
-### subtract
-
-```js
-/**
- * 矩阵相减
- * 
  */
 ```
 
@@ -335,7 +330,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 矩阵相加
- * 
+ *
  */
 ```
 
@@ -344,8 +339,8 @@ const mat3 = new Mat3()
 ```js
 /**
  * 判断2个三维矩阵是否严格相对
- * 
- * @param {Mat3} mat3 
+ *
+ * @param {Mat3} mat3
  * @returns {Boolean}
  */
 ```
@@ -355,8 +350,8 @@ const mat3 = new Mat3()
 ```js
 /**
  * 判断2个三维矩阵是否相对相等，具体实现参考公共部分的equals方法
- * 
- * @param {Mat3} mat3 
+ *
+ * @param {Mat3} mat3
  * @returns {Boolean}
  */
 ```
@@ -366,7 +361,7 @@ const mat3 = new Mat3()
 ```js
 /**
  * 以字符串显示
- * 
+ *
  * @returns{String}
  */
 ```

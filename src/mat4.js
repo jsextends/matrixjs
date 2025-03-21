@@ -2,20 +2,46 @@ import { ARRAY_TYPE, equals } from "./common";
 import Mat3 from "./mat3";
 
 export default class Mat4 {
+  /**
+   * @property {ARRAY_TYPE} _value 分量的数据
+   */
   _value = [];
 
   /**
-   * 初始化一个三维矩阵
+   * 初始化一个四维矩阵
    *
-   * [1,0,0
-   *  0,1,0,
-   *  0,0,1]
+   * [1,0,0,0
+   *  0,1,0,0
+   *  0,0,1,0
+   *  0,0,0,1]
    */
   constructor() {
     this._value = new ARRAY_TYPE(16);
     this.identity();
   }
 
+  /**
+   * 使用16个值创建一个四维矩阵
+   *
+   * @param {Number} m00
+   * @param {Number} m01
+   * @param {Number} m02
+   * @param {Number} m03
+   * @param {Number} m10
+   * @param {Number} m11
+   * @param {Number} m12
+   * @param {Number} m13
+   * @param {Number} m20
+   * @param {Number} m21
+   * @param {Number} m22
+   * @param {Number} m23
+   * @param {Number} m30
+   * @param {Number} m31
+   * @param {Number} m32
+   * @param {Number} m33
+   *
+   * @returns {Mat4}
+   */
   static fromValues(
     m00,
     m01,
@@ -35,7 +61,7 @@ export default class Mat4 {
     m33
   ) {
     const result = new Mat4();
-    this.set(
+    result.set(
       m00,
       m01,
       m02,
@@ -56,6 +82,26 @@ export default class Mat4 {
     return result;
   }
 
+  /**
+   * 设置四维矩阵的值
+   *
+   * @param {Number} m00
+   * @param {Number} m01
+   * @param {Number} m02
+   * @param {Number} m03
+   * @param {Number} m10
+   * @param {Number} m11
+   * @param {Number} m12
+   * @param {Number} m13
+   * @param {Number} m20
+   * @param {Number} m21
+   * @param {Number} m22
+   * @param {Number} m23
+   * @param {Number} m30
+   * @param {Number} m31
+   * @param {Number} m32
+   * @param {Number} m33
+   */
   set(
     m00,
     m01,
@@ -92,41 +138,101 @@ export default class Mat4 {
     this.set33(m33);
   }
 
+  /**
+   * 设置四维矩阵的第一行第一列的值
+   *
+   * @param {Number} val
+   */
   set00(val) {
     this._value[0] = val;
   }
 
+  /**
+   * 设置四维矩阵的第一行第二列的值
+   *
+   * @param {Number} val
+   */
   set01(val) {
     this._value[1] = val;
   }
+
+  /**
+   * 设置四维矩阵的第一行第三列的值
+   *
+   * @param {Number} val
+   */
   set02(val) {
     this._value[2] = val;
   }
 
+  /**
+   * 设置四维矩阵的第一行第四列的值
+   *
+   * @param {Number} val
+   */
   set03(val) {
     this._value[3] = val;
   }
 
+  /**
+   * 设置四维矩阵的第二行第一列的值
+   *
+   * @param {Number} val
+   */
   set10(val) {
     this._value[4] = val;
   }
 
+  /**
+   * 设置四维矩阵的第二行第二列的值
+   *
+   * @param {Number} val
+   */
   set11(val) {
     this._value[5] = val;
   }
+
+  /**
+   * 设置四维矩阵的第二行第三列的值
+   *
+   * @param {Number} val
+   */
   set12(val) {
     this._value[6] = val;
   }
+
+  /**
+   * 设置四维矩阵的第二行第四列的值
+   *
+   * @param {Number} val
+   */
   set13(val) {
     this._value[7] = val;
   }
+
+  /**
+ * 设置四维矩阵的第三行第一列的值
+ * 
+ * @param {Number} val
+ */
   set20(val) {
     this._value[8] = val;
   }
 
+  /**
+ * 设置四维矩阵的第三行第二列的值
+ * 
+ * @param {Number} val
+ */
   set21(val) {
     this._value[9] = val;
   }
+
+  /**
+ * 设置四维矩阵的第三行第三列的值
+ * 
+ * @param {Number} val
+ */
   set22(val) {
     this._value[10] = val;
   }
@@ -298,26 +404,219 @@ export default class Mat4 {
     }
     det = 1 / det;
     const result = new Mat4();
-    const m00 = Mat3.fromValues(this.get11(), this.get12(), this.get13(), this.get21(), this.get22(), this.get23(),this.get31(), this.get32(), this.get33()).determinant() * det;
-    const m01 = -Mat3.fromValues(this.get10(), this.get12(), this.get13(), this.get20(), this.get22(), this.get23(),this.get30(), this.get32(), this.get33()).determinant()* det;
-    const m02 = Mat3.fromValues(this.get10(), this.get11(), this.get13(), this.get20(), this.get21(), this.get23(),this.get30(), this.get31(), this.get33()).determinant()* det;
-    const m03 = -Mat3.fromValues(this.get10(), this.get11(), this.get12(), this.get20(), this.get21(), this.get21(),this.get30(), this.get31(), this.get32()).determinant()* det;
-    
-    const m10 = -Mat3.fromValues(this.get01(), this.get02(), this.get03(), this.get21(), this.get22(), this.get23(),this.get31(), this.get32(), this.get33()).determinant()* det;
-    const m11 = Mat3.fromValues(this.get00(), this.get02(), this.get03(), this.get20(), this.get22(), this.get23(),this.get30(), this.get32(), this.get33()).determinant()* det;
-    const m12 = -Mat3.fromValues(this.get00(), this.get01(), this.get03(), this.get20(), this.get21(), this.get23(),this.get30(), this.get31(), this.get33()).determinant()* det;
-    const m13 = Mat3.fromValues(this.get00(), this.get02(), this.get13(), this.get20(), this.get21(), this.get21(),this.get30(), this.get31(), this.get32()).determinant()* det;
-   
-    const m20 = Mat3.fromValues(this.get01(), this.get02(), this.get03(), this.get11(), this.get12(), this.get13(),this.get31(), this.get32(), this.get33()).determinant()* det;
-    const m21 = -Mat3.fromValues(this.get00(), this.get12(), this.get13(), this.get10(), this.get12(), this.get13(),this.get30(), this.get32(), this.get33()).determinant()* det;
-    const m22 = Mat3.fromValues(this.get00(), this.get01(), this.get03(), this.get10(), this.get11(), this.get13(),this.get30(), this.get31(), this.get33()).determinant()* det;
-    const m23 = -Mat3.fromValues(this.get00(), this.get01(), this.get02(), this.get10(), this.get11(), this.get12(),this.get00(), this.get31(), this.get32()).determinant()* det;
-    
-    const m30 = -Mat3.fromValues(this.get00(), this.get01(), this.get02(), this.get10(), this.get11(), this.get12(),this.ge20(), this.get21(), this.get22()).determinant()* det;
-    const m31 = Mat3.fromValues(this.get00(), this.get02(), this.get03(), this.get10(), this.get12(), this.get13(),this.get20(), this.get22(), this.get23()).determinant()* det;
-    const m32 = -Mat3.fromValues(this.get00(), this.get01(), this.get03(), this.get10(), this.get11(), this.get13(),this.get20(), this.get21(), this.get23()).determinant()* det;
-    const m33 = Mat3.fromValues(this.get00(), this.get01(), this.get02(), this.get10(), this.get11(), this.get12(),this.get20(), this.get21(), this.get22()).determinant()* det;
-    result.set( m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
+    const m00 =
+      Mat3.fromValues(
+        this.get11(),
+        this.get12(),
+        this.get13(),
+        this.get21(),
+        this.get22(),
+        this.get23(),
+        this.get31(),
+        this.get32(),
+        this.get33()
+      ).determinant() * det;
+    const m01 =
+      -Mat3.fromValues(
+        this.get10(),
+        this.get12(),
+        this.get13(),
+        this.get20(),
+        this.get22(),
+        this.get23(),
+        this.get30(),
+        this.get32(),
+        this.get33()
+      ).determinant() * det;
+    const m02 =
+      Mat3.fromValues(
+        this.get10(),
+        this.get11(),
+        this.get13(),
+        this.get20(),
+        this.get21(),
+        this.get23(),
+        this.get30(),
+        this.get31(),
+        this.get33()
+      ).determinant() * det;
+    const m03 =
+      -Mat3.fromValues(
+        this.get10(),
+        this.get11(),
+        this.get12(),
+        this.get20(),
+        this.get21(),
+        this.get21(),
+        this.get30(),
+        this.get31(),
+        this.get32()
+      ).determinant() * det;
+
+    const m10 =
+      -Mat3.fromValues(
+        this.get01(),
+        this.get02(),
+        this.get03(),
+        this.get21(),
+        this.get22(),
+        this.get23(),
+        this.get31(),
+        this.get32(),
+        this.get33()
+      ).determinant() * det;
+    const m11 =
+      Mat3.fromValues(
+        this.get00(),
+        this.get02(),
+        this.get03(),
+        this.get20(),
+        this.get22(),
+        this.get23(),
+        this.get30(),
+        this.get32(),
+        this.get33()
+      ).determinant() * det;
+    const m12 =
+      -Mat3.fromValues(
+        this.get00(),
+        this.get01(),
+        this.get03(),
+        this.get20(),
+        this.get21(),
+        this.get23(),
+        this.get30(),
+        this.get31(),
+        this.get33()
+      ).determinant() * det;
+    const m13 =
+      Mat3.fromValues(
+        this.get00(),
+        this.get02(),
+        this.get13(),
+        this.get20(),
+        this.get21(),
+        this.get21(),
+        this.get30(),
+        this.get31(),
+        this.get32()
+      ).determinant() * det;
+
+    const m20 =
+      Mat3.fromValues(
+        this.get01(),
+        this.get02(),
+        this.get03(),
+        this.get11(),
+        this.get12(),
+        this.get13(),
+        this.get31(),
+        this.get32(),
+        this.get33()
+      ).determinant() * det;
+    const m21 =
+      -Mat3.fromValues(
+        this.get00(),
+        this.get12(),
+        this.get13(),
+        this.get10(),
+        this.get12(),
+        this.get13(),
+        this.get30(),
+        this.get32(),
+        this.get33()
+      ).determinant() * det;
+    const m22 =
+      Mat3.fromValues(
+        this.get00(),
+        this.get01(),
+        this.get03(),
+        this.get10(),
+        this.get11(),
+        this.get13(),
+        this.get30(),
+        this.get31(),
+        this.get33()
+      ).determinant() * det;
+    const m23 =
+      -Mat3.fromValues(
+        this.get00(),
+        this.get01(),
+        this.get02(),
+        this.get10(),
+        this.get11(),
+        this.get12(),
+        this.get00(),
+        this.get31(),
+        this.get32()
+      ).determinant() * det;
+
+    const m30 =
+      -Mat3.fromValues(
+        this.get00(),
+        this.get01(),
+        this.get02(),
+        this.get10(),
+        this.get11(),
+        this.get12(),
+        this.ge20(),
+        this.get21(),
+        this.get22()
+      ).determinant() * det;
+    const m31 =
+      Mat3.fromValues(
+        this.get00(),
+        this.get02(),
+        this.get03(),
+        this.get10(),
+        this.get12(),
+        this.get13(),
+        this.get20(),
+        this.get22(),
+        this.get23()
+      ).determinant() * det;
+    const m32 =
+      -Mat3.fromValues(
+        this.get00(),
+        this.get01(),
+        this.get03(),
+        this.get10(),
+        this.get11(),
+        this.get13(),
+        this.get20(),
+        this.get21(),
+        this.get23()
+      ).determinant() * det;
+    const m33 =
+      Mat3.fromValues(
+        this.get00(),
+        this.get01(),
+        this.get02(),
+        this.get10(),
+        this.get11(),
+        this.get12(),
+        this.get20(),
+        this.get21(),
+        this.get22()
+      ).determinant() * det;
+    result.set(
+      m00,
+      m01,
+      m02,
+      m03,
+      m10,
+      m11,
+      m12,
+      m13,
+      m20,
+      m21,
+      m22,
+      m23,
+      m30,
+      m31,
+      m32,
+      m33
+    );
     result.transpose();
     return result;
   }
@@ -325,26 +624,203 @@ export default class Mat4 {
   adjugate() {
     const result = new Mat4();
 
-    const m00 = Mat3.fromValues(this.get11(), this.get12(), this.get13(), this.get21(), this.get22(), this.get23(),this.get31(), this.get32(), this.get33()).determinant();
-    const m01 = -Mat3.fromValues(this.get10(), this.get12(), this.get13(), this.get20(), this.get22(), this.get23(),this.get30(), this.get32(), this.get33()).determinant();
-    const m02 = Mat3.fromValues(this.get10(), this.get11(), this.get13(), this.get20(), this.get21(), this.get23(),this.get30(), this.get31(), this.get33()).determinant();
-    const m03 = -Mat3.fromValues(this.get10(), this.get11(), this.get12(), this.get20(), this.get21(), this.get21(),this.get30(), this.get31(), this.get32()).determinant();
-    
-    const m10 = -Mat3.fromValues(this.get01(), this.get02(), this.get03(), this.get21(), this.get22(), this.get23(),this.get31(), this.get32(), this.get33()).determinant();
-    const m11 = Mat3.fromValues(this.get00(), this.get02(), this.get03(), this.get20(), this.get22(), this.get23(),this.get30(), this.get32(), this.get33()).determinant();
-    const m12 = -Mat3.fromValues(this.get00(), this.get01(), this.get03(), this.get20(), this.get21(), this.get23(),this.get30(), this.get31(), this.get33()).determinant();
-    const m13 = Mat3.fromValues(this.get00(), this.get02(), this.get13(), this.get20(), this.get21(), this.get21(),this.get30(), this.get31(), this.get32()).determinant();
-   
-    const m20 = Mat3.fromValues(this.get01(), this.get02(), this.get03(), this.get11(), this.get12(), this.get13(),this.get31(), this.get32(), this.get33()).determinant();
-    const m21 = -Mat3.fromValues(this.get00(), this.get12(), this.get13(), this.get10(), this.get12(), this.get13(),this.get30(), this.get32(), this.get33()).determinant();
-    const m22 = Mat3.fromValues(this.get00(), this.get01(), this.get03(), this.get10(), this.get11(), this.get13(),this.get30(), this.get31(), this.get33()).determinant();
-    const m23 = -Mat3.fromValues(this.get00(), this.get01(), this.get02(), this.get10(), this.get11(), this.get12(),this.get00(), this.get31(), this.get32()).determinant();
-    
-    const m30 = -Mat3.fromValues(this.get00(), this.get01(), this.get02(), this.get10(), this.get11(), this.get12(),this.ge20(), this.get21(), this.get22()).determinant();
-    const m31 = Mat3.fromValues(this.get00(), this.get02(), this.get03(), this.get10(), this.get12(), this.get13(),this.get20(), this.get22(), this.get23()).determinant();
-    const m32 = -Mat3.fromValues(this.get00(), this.get01(), this.get03(), this.get10(), this.get11(), this.get13(),this.get20(), this.get21(), this.get23()).determinant();
-    const m33 = Mat3.fromValues(this.get00(), this.get01(), this.get02(), this.get10(), this.get11(), this.get12(),this.get20(), this.get21(), this.get22()).determinant();
-    result.set( m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
+    const m00 = Mat3.fromValues(
+      this.get11(),
+      this.get12(),
+      this.get13(),
+      this.get21(),
+      this.get22(),
+      this.get23(),
+      this.get31(),
+      this.get32(),
+      this.get33()
+    ).determinant();
+    const m01 = -Mat3.fromValues(
+      this.get10(),
+      this.get12(),
+      this.get13(),
+      this.get20(),
+      this.get22(),
+      this.get23(),
+      this.get30(),
+      this.get32(),
+      this.get33()
+    ).determinant();
+    const m02 = Mat3.fromValues(
+      this.get10(),
+      this.get11(),
+      this.get13(),
+      this.get20(),
+      this.get21(),
+      this.get23(),
+      this.get30(),
+      this.get31(),
+      this.get33()
+    ).determinant();
+    const m03 = -Mat3.fromValues(
+      this.get10(),
+      this.get11(),
+      this.get12(),
+      this.get20(),
+      this.get21(),
+      this.get21(),
+      this.get30(),
+      this.get31(),
+      this.get32()
+    ).determinant();
+
+    const m10 = -Mat3.fromValues(
+      this.get01(),
+      this.get02(),
+      this.get03(),
+      this.get21(),
+      this.get22(),
+      this.get23(),
+      this.get31(),
+      this.get32(),
+      this.get33()
+    ).determinant();
+    const m11 = Mat3.fromValues(
+      this.get00(),
+      this.get02(),
+      this.get03(),
+      this.get20(),
+      this.get22(),
+      this.get23(),
+      this.get30(),
+      this.get32(),
+      this.get33()
+    ).determinant();
+    const m12 = -Mat3.fromValues(
+      this.get00(),
+      this.get01(),
+      this.get03(),
+      this.get20(),
+      this.get21(),
+      this.get23(),
+      this.get30(),
+      this.get31(),
+      this.get33()
+    ).determinant();
+    const m13 = Mat3.fromValues(
+      this.get00(),
+      this.get02(),
+      this.get13(),
+      this.get20(),
+      this.get21(),
+      this.get21(),
+      this.get30(),
+      this.get31(),
+      this.get32()
+    ).determinant();
+
+    const m20 = Mat3.fromValues(
+      this.get01(),
+      this.get02(),
+      this.get03(),
+      this.get11(),
+      this.get12(),
+      this.get13(),
+      this.get31(),
+      this.get32(),
+      this.get33()
+    ).determinant();
+    const m21 = -Mat3.fromValues(
+      this.get00(),
+      this.get12(),
+      this.get13(),
+      this.get10(),
+      this.get12(),
+      this.get13(),
+      this.get30(),
+      this.get32(),
+      this.get33()
+    ).determinant();
+    const m22 = Mat3.fromValues(
+      this.get00(),
+      this.get01(),
+      this.get03(),
+      this.get10(),
+      this.get11(),
+      this.get13(),
+      this.get30(),
+      this.get31(),
+      this.get33()
+    ).determinant();
+    const m23 = -Mat3.fromValues(
+      this.get00(),
+      this.get01(),
+      this.get02(),
+      this.get10(),
+      this.get11(),
+      this.get12(),
+      this.get00(),
+      this.get31(),
+      this.get32()
+    ).determinant();
+
+    const m30 = -Mat3.fromValues(
+      this.get00(),
+      this.get01(),
+      this.get02(),
+      this.get10(),
+      this.get11(),
+      this.get12(),
+      this.ge20(),
+      this.get21(),
+      this.get22()
+    ).determinant();
+    const m31 = Mat3.fromValues(
+      this.get00(),
+      this.get02(),
+      this.get03(),
+      this.get10(),
+      this.get12(),
+      this.get13(),
+      this.get20(),
+      this.get22(),
+      this.get23()
+    ).determinant();
+    const m32 = -Mat3.fromValues(
+      this.get00(),
+      this.get01(),
+      this.get03(),
+      this.get10(),
+      this.get11(),
+      this.get13(),
+      this.get20(),
+      this.get21(),
+      this.get23()
+    ).determinant();
+    const m33 = Mat3.fromValues(
+      this.get00(),
+      this.get01(),
+      this.get02(),
+      this.get10(),
+      this.get11(),
+      this.get12(),
+      this.get20(),
+      this.get21(),
+      this.get22()
+    ).determinant();
+    result.set(
+      m00,
+      m01,
+      m02,
+      m03,
+      m10,
+      m11,
+      m12,
+      m13,
+      m20,
+      m21,
+      m22,
+      m23,
+      m30,
+      m31,
+      m32,
+      m33
+    );
     return result;
   }
 
@@ -360,7 +836,6 @@ export default class Mat4 {
         this.get00() * this.get21() * this.get12())
     );
   }
-
 
   add(mat4) {
     this.set00(this.get00() + mat4.get00());
@@ -438,7 +913,7 @@ export default class Mat4 {
       equals(this.get30(), mat4.get30()) &&
       equals(this.get31(), mat4.get31()) &&
       equals(this.get32(), mat4.get32()) &&
-      equals(this.get33(), mat4.get33()) 
+      equals(this.get33(), mat4.get33())
     );
   }
 
