@@ -1,96 +1,83 @@
-const { Vec2, Vec3 } = require("../dist/matrix");
+const { Mat2, Common } = require("../dist/matrix");
 
-describe("Vec2", () => {
-  let vecA, vecB;
+describe("Mat2", () => {
+  describe("矩阵运算", () => {
+    let m1, m2;
 
-  beforeEach(() => {
-    vecA = Vec2.fromValues(2, 3);
-    vecB = Vec2.fromValues(4, 5);
-  });
-
-  describe("测试实例方法", () => {
-    test("获取各个分量的值", () => {
-      expect(vecA.get("x")).toBe(2);
-      expect(vecA.get("y")).toBe(3);
+    beforeEach(() => {
+      m1 = Mat2.fromValues(1, 2, 3, 4);
+      m2 = Mat2.fromValues(5, 6, 7, 8);
     });
 
-    test("克隆一个二维向量", () => {
-      const cloned = vecA.clone();
-      expect(cloned.exactEquals(vecA)).toBe(true);
+    test("矩阵转置", () => {
+      m1.transpose();
+      expect(m1.exactEquals(Mat2.fromValues(1, 3, 2, 4))).toBe(true);
     });
 
-    test("复制向量的值", () => {
-      const target = new Vec2();
-      target.copy(vecA);
-      expect(target.exactEquals(vecA)).toBe(true);
-    });
-  });
-
-  describe("数学运算", () => {
-    test("向量相加", () => {
-      vecA.add(vecB);
-      expect(vecA.get("x")).toBe(6);
-      expect(vecA.get("y")).toBe(8);
+    test("求矩阵的行列式", () => {
+      expect(m1.determinant()).toBe(1 * 4 - 2 * 3); // 1*4 - 2*3 = -2
     });
 
-    test("向量数乘", () => {
-      vecA.scale(2);
-      expect(vecA.get("x")).toBe(4);
-      expect(vecA.get("y")).toBe(6);
+    test("求逆矩阵", () => {
+      const singular = Mat2.fromValues(1, 2, 2, 4);
+      expect(singular.invert()).toBeNull();
     });
 
-    test("与另外一个二维向量欧几米德距离的平方", () => {
-      const distance = vecA.squaredDistance(vecB);
-      expect(distance).toBe(8);
+    test("求伴随矩阵", () => {
+      const singular = Mat2.fromValues(2, 1, 1, 2).adjugate();
+      const mat = Mat2.fromValues(2, -1,-1,2)
+      expect(singular.equals(mat)).toBe(true);
     });
 
-    test("与原点的欧几米德距离的平方", () => {
-      const distance = vecA.squaredLength();
-      expect(distance).toBe(13);
+    test("逆矩阵和原矩阵相乘等于单位矩阵", () => {
+      const original = Mat2.fromValues(4, 3, 3, 2);
+      const inverse = original.invert();
+      original.multiply(inverse);
+      expect(original.equals(new Mat2())).toBe(true);
     });
 
-    test("线性插值", () => {
-      const interpolated =  vecA.linerInterpolation(vecB, 0.5)
-      expect(interpolated.get("x")).toBe(3);
-      expect(interpolated.get("y")).toBe(4);
+    test("矩阵乘法不满足交换律", () => {
+      const m3 = m1.clone();
+      m3.multiply(m2)
+      const m4 = m2.clone();
+      m4.multiply(m1)
+      expect(m3.equals(m4)).toBe(false); // Matrix multiplication is not commutative
     });
   });
 
-  // 静态方法
-  describe("测试非整数", () => {
-    test("向上取整", () => {
-      const result = Vec2.fromValues(1.2, 3.8)
-      result.ceil();
-      expect(result.get("x")).toBe(2);
-      expect(result.get("y")).toBe(4);
+  describe("相等检测", () => {
+    test("exactEquals", () => {
+      const a = Mat2.fromValues(1, 2, 3, 4);
+      const b = Mat2.fromValues(1, 2, 3, 4.000300004);
+      expect(a.exactEquals(b)).toBe(false);
     });
-    test("向下取整", () => {
-      const result = Vec2.fromValues(1.2, 3.8)
-      result.floor();
-      expect(result.get("x")).toBe(1);
-      expect(result.get("y")).toBe(3);
+
+    test("浮点数相等检测", () => {
+      const a = Mat2.fromValues(1, 2, 3, 4);
+      const b = Mat2.fromValues(
+        1 + Common.EPSILON / 2,
+        2 - Common.EPSILON / 2,
+        3 + Common.EPSILON / 2,
+        4 - Common.EPSILON / 2
+      );
+      expect(a.equals(b)).toBe(true);
     });
-    test("四舍五入取整", () => {
-      const result = Vec2.fromValues(1.2, 3.8)
-      result.round();
-      expect(result.get("x")).toBe(1);
-      expect(result.get("y")).toBe(4);
+
+    test("矩阵相加", () => {
+      const m = Mat2.fromValues(2, 1, 1, 2);
+      const inv = m.invert();
+      m.add(inv);
+      expect(m.get00()).toBeCloseTo(2 + 2 / 3);
+      expect(m.get11()).toBeCloseTo(2 + 2 / 3);
     });
   });
 
-  // 向量特性
-  describe("向量乘积", () => {
-
-    test("点积", () => {
-      const dot = vecA.dot(vecB);
-      expect(dot).toBe(23); // 8 + 15 = 23
+  describe("转字符串", () => {
+    test("toString", () => {
+      const m = Mat2.fromValues(1, 2, 3, 4);
+      expect(m.toString()).toBe(`Mat2
+[1 2
+3 4]`);
     });
-
-    test("叉积", () => {
-      const cross = vecA.cross(vecB);
-      expect(cross).toBeInstanceOf(Vec3);
-      expect(cross.get("z")).toBe(-2);
-    });
-
   });
 });

@@ -39,43 +39,16 @@ const mat2 = new Mat2()
 
 ## 实例方法
 
-### get00
+### set
 
 ```js
 /**
- * 获取二维矩阵的第一行第一列的值
+ * 设置二维矩阵的值
  * 
- * @returns {Number}
- */
-```
-
-### get01
-
-```js
-/**
- * 获取二维矩阵的第一行第二列的值
- * 
- * @returns {Number}
- */
-```
-
-### get10
-
-```js
-/**
- * 获取二维矩阵的第二行第一列的值
- * 
- * @returns {Number}
- */
-```
-
-### get11
-
-```js
-/**
- * 获取二维矩阵的第二行第二列的值
- * 
- * @returns {Number}
+ * @param {Number} m00 
+ * @param {Number} m01
+ * @param {Number} m10 
+ * @param {Number} m11 
  */
 ```
 
@@ -119,16 +92,43 @@ const mat2 = new Mat2()
  */
 ```
 
-### set
+### get00
 
 ```js
 /**
- * 设置二维矩阵的值
+ * 获取二维矩阵的第一行第一列的值
  * 
- * @param {Number} m00 
- * @param {Number} m01
- * @param {Number} m10 
- * @param {Number} m11 
+ * @returns {Number}
+ */
+```
+
+### get01
+
+```js
+/**
+ * 获取二维矩阵的第一行第二列的值
+ * 
+ * @returns {Number}
+ */
+```
+
+### get10
+
+```js
+/**
+ * 获取二维矩阵的第二行第一列的值
+ * 
+ * @returns {Number}
+ */
+```
+
+### get11
+
+```js
+/**
+ * 获取二维矩阵的第二行第二列的值
+ * 
+ * @returns {Number}
  */
 ```
 
@@ -137,7 +137,6 @@ const mat2 = new Mat2()
 ```js
 /**
  * 设置二维矩阵为单位矩阵（对眼矩阵）
- * 
  */
 ```
 
@@ -166,12 +165,22 @@ const mat2 = new Mat2()
 ```js
 /**
  * 矩阵转置
- * 
- * @returns{Mat2|null}
  */
 ```
 
 > 之前的行转为列，列转为行
+
+### determinant
+
+```js
+/**
+ * 计算行列式
+ * 
+ * @returns{Number}
+ */
+```
+
+> 对于二维矩阵，行列式的值为主对角线积减去副对角线的积
 
 ### invert
 
@@ -179,6 +188,7 @@ const mat2 = new Mat2()
 /**
  * 求逆矩阵
  * 
+ * @returns {Mat2|null}
  */
 ```
 
@@ -197,8 +207,8 @@ $det(A)=ad - bc$
 $$
 A^{-1}=
 \begin{bmatrix}
-\frac{a}{det(A)} & -\frac{b}{det(A)} \\
--\frac{c}{det(A)} & \frac{d}{det(A)}
+\frac{d}{det(A)} & -\frac{b}{det(A)} \\
+-\frac{c}{det(A)} & \frac{a}{det(A)}
 \end{bmatrix}
 $$
 
@@ -208,7 +218,7 @@ $$
 /**
  * 伴随矩阵
  * 
- * @returns{Mat2|null}
+ * @returns{Mat2}
  */
 ```
 
@@ -228,63 +238,21 @@ d & -b \\
 \end{bmatrix}
 $$
 
-### determinant
-
-```js
-/**
- * 计算行列式
- * 
- * @returns{Number}
- */
-```
-
-> 对于二维矩阵，行列式的值为主对角线积减去副对角线的积
-
-### multiply
-
-```js
-/**
- * 矩阵相乘
- * 
- * @param {Mat2} mat2
- */
-```
-
-### rotate
-
-```js
-/**
- * 旋转一定角度
- * 
- * @param {Number} rad
- */
-```
-
-### scale
-
-```js
-/**
- * 通过一个二维向量缩放矩阵
- * 
- * @param {Vec2} vec2
- */
-```
-
-### subtract
-
-```js
-/**
- * 矩阵相减
- * 
- */
-```
-
 ### add
 
 ```js
 /**
  * 矩阵相加
+ */
+```
+
+### multiply
+
+```js
+ /**
+ * 二维矩阵的相乘
  * 
+ * @param {Mat2} mat2 
  */
 ```
 
